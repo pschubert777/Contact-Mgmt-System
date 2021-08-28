@@ -1,0 +1,44 @@
+﻿@page "/addcontact"
+
+@using CMS.DB
+@using CMS.FormModels
+
+
+<h1>Add a Contact </h1>
+
+<div class="container">
+    <EditForm Model="@newContact" OnValidSubmit="@submitHandler">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="form-group">
+            <label>First Name: </label>
+            <InputText id="firstName" @bind-Value="newContact.FirstName" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Last Name: </label>
+            <InputText id="lastName" @bind-Value="newContact.LastName" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Birth Date: </label>
+            <InputDate id="birthDate" @bind-Value="newContact.BirthDate" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Phone Number: </label>
+            <InputText id="phoneNumber" @bind-Value="newContact.PhoneNumber" class="form-control" />
+
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+    </EditForm>
+</div>
+
+@code {
+    private ContactModel newContact = new ContactModel();
+    
+    private void submitHandler()
+    {
+
+    }
+}

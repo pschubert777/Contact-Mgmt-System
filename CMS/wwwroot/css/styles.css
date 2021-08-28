@@ -1,0 +1,13 @@
+﻿.form{
+    width: 100%;
+}
+.centered {
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.inputElement{
+    display:inline-block;
+    width:90%;
+}
