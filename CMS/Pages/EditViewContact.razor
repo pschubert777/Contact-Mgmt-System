@@ -1,0 +1,93 @@
+﻿@page "/edit/{contactId}"
+
+@using CMS.Data
+@using CMS.DB
+@using CMS.FormModels
+@inject NavigationManager NavigationManager
+@inject ContactService ContactService
+
+
+
+<h1>Add a Contact </h1>
+
+@if (isLoading)
+{
+
+    <p>Loading contact information....</p>
+
+}
+else
+{
+    <div class="container">
+        <EditForm Model="@existingContactForm" OnValidSubmit="@submitHandler">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="form-group">
+                <label>First Name: </label>
+                <InputText id="firstName" @bind-Value="existingContactForm.FirstName" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Last Name: </label>
+                <InputText id="lastName" @bind-Value="existingContactForm.LastName" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Birth Date: </label>
+                <InputDate id="birthDate" @bind-Value="existingContactForm.BirthDate" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Phone Number: </label>
+                <InputText id="phoneNumber" @bind-Value="existingContactForm.PhoneNumber" class="form-control" />
+
+            </div>
+            <div class="text-right">
+                <button type="button" class="btn btn-danger" @onclick="@cancelHandler">Cancel</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+
+
+
+        </EditForm>
+    </div>
+}
+
+@code {
+
+    [Parameter]
+    public String contactId { get; set; }
+
+    Boolean isLoading = true;
+
+    private ContactModel existingContactForm;
+
+    private Contact existingContact = new Contact();
+
+    protected override async Task OnInitializedAsync()
+    {
+        existingContact = await Task.Run(() => ContactService.GetContact(Convert.ToInt32(contactId)));
+
+        existingContactForm = new ContactModel(existingContact.FirstName, existingContact.LastName, existingContact.PhoneNumber, existingContact.BirthDate);
+
+        isLoading = false;
+
+    }
+
+    private void cancelHandler()
+    {
+        NavigationManager.NavigateTo("");
+    }
+    private async void submitHandler()
+    {
+        Contact updatedContact = new Contact();
+        updatedContact.LastName = existingContactForm.LastName;
+        updatedContact.FirstName = existingContactForm.FirstName;
+        updatedContact.PhoneNumber = existingContactForm.PhoneNumber;
+        updatedContact.BirthDate = existingContactForm.BirthDate;
+        updatedContact.Id = existingContact.Id;
+
+
+        await Task.Run(() => ContactService.UpdateContact(updatedContact));
+
+        NavigationManager.NavigateTo("");
+    }
+}
