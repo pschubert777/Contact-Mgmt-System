@@ -41,8 +41,9 @@ else
 
             </div>
             <div class="text-right">
-                <button type="button" class="btn btn-danger" @onclick="@cancelHandler">Cancel</button>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="button" class="btn btn-danger" @onclick="@deleteHandler">Delete</button>
+                <button type="button" class="btn btn-primary" @onclick="@cancelHandler">Cancel</button>
+                <button type="submit" class="btn btn-success">Submit</button>
             </div>
 
 
@@ -72,6 +73,15 @@ else
 
     }
 
+
+
+    private async void deleteHandler()
+    {
+        await Task.Run(() => ContactService.DeleteContact(existingContact));
+        NavigationManager.NavigateTo("");
+
+
+    }
     private void cancelHandler()
     {
         NavigationManager.NavigateTo("");
