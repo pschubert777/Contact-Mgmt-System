@@ -1,7 +1,75 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
+@using CMS.Data
+@using CMS.DB
+@inject NavigationManager NavigationManager
+@inject ContactService ContactService
 
-Welcome to your new app.
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+<h1>Contacts</h1>
+<div class="text-right my-3">
+    <button class="btn btn-primary " @onclick="addContact">Add Contact</button>
+</div>
+
+@if (isLoading) {
+
+    <p> Loading Contacts....</p>
+
+ }
+ else
+ {
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Last Name</th>
+                <th>First Name</th>
+                <th>BirthDate</th>
+                <th>Phone Number</th>
+                <th>Action</th>
+            </tr>
+            
+        </thead>
+        <tbody>
+            @foreach(var contact in ContactList)
+                {
+            <tr>
+                <td>@contact.LastName</td>
+                <td>@contact.FirstName</td>
+                <td>@contact.BirthDate.ToShortDateString()</td>
+                <td>@contact.PhoneNumber</td>
+                <td><a href="/edit/@contact.Id">Edit/View</a></td>
+
+            </tr>
+                }
+        </tbody>
+
+    </table>
+
+ }
+
+
+
+
+
+
+@code{
+    List<Contact> ContactList;
+
+    Boolean isLoading = true;
+
+    private void addContact()
+    {
+        NavigationManager.NavigateTo("addcontact");
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        ContactList = await ContactService.GetContacts();
+
+        isLoading = false;
+    }
+
+
+
+
+}
