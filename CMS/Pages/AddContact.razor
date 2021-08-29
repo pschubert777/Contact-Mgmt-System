@@ -3,20 +3,21 @@
 @using CMS.Data
 @using CMS.DB
 @using CMS.FormModels
-@inject ContactService contactService
+@inject NavigationManager NavigationManager
+@inject ContactService ContactService
 
 
 
 <h1>Add a Contact </h1>
 
 <div class="container">
-    <EditForm Model="@newContact" OnValidSubmit="@submitHandler">
+    <EditForm Model="@newContactForm" OnValidSubmit="@submitHandler">
         <DataAnnotationsValidator />
         <ValidationSummary />
 
         <div class="form-group">
             <label>First Name: </label>
-            <InputText id="firstName" @bind-Value="newContact.FirstName" class="form-control" />
+            <InputText id="firstName" @bind-Value="newContactForm.FirstName" class="form-control" />
         </div>
         <div class="form-group">
             <label>Last Name: </label>
@@ -31,8 +32,12 @@
             <InputText id="phoneNumber" @bind-Value="newContactForm.PhoneNumber" class="form-control" />
 
         </div>
+        <div class="text-right">
+            <button type="button" class="btn btn-danger" @onclick="@cancelHandler">Cancel</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+
 
     </EditForm>
 </div>
@@ -40,6 +45,11 @@
 @code {
     private ContactModel newContactForm = new ContactModel();
 
+
+    private void cancelHandler()
+    {
+        NavigationManager.NavigateTo("");
+    }
     private async void submitHandler()
     {
         Contact newContact = new Contact();
@@ -49,6 +59,8 @@
         newContact.BirthDate = newContactForm.BirthDate;
 
 
-        await Task.Run(() => contactService.AddContact(newContact));
+        await Task.Run(() => ContactService.AddContact(newContact));
+
+        NavigationManager.NavigateTo("");
     }
 }
