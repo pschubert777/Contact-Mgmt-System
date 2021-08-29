@@ -29,7 +29,6 @@ namespace CMS
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
 
             services.AddScoped<ContactService>();
             services.AddDbContext<AppDBContext>(item => item.UseMySQL(Configuration.GetConnectionString("connection")));
