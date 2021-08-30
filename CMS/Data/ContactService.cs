@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using CMS.DB;
+using System.Linq;
+
 namespace CMS.Data
 {
     public class ContactService
@@ -19,7 +21,26 @@ namespace CMS.Data
 
 
         //get all the contacts
-        public async Task<List<Contact>> GetContacts() => await _appDbContext.Contacts.ToListAsync();
+        public async Task<List<Contact>> GetContacts(string sortType ="")
+        {
+            
+
+            if(sortType == "lastname")
+            {
+                return await _appDbContext.Contacts.OrderBy(contact => contact.LastName).ToListAsync();
+            }
+            else if(sortType == "firstname")
+            {
+                return await _appDbContext.Contacts.OrderBy(contact => contact.FirstName).ToListAsync();
+            }
+            else
+            {
+                return await _appDbContext.Contacts.ToListAsync(); 
+            }
+
+
+           
+        }
 
         public async Task AddContact(Contact contact)
         {
