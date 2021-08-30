@@ -46,11 +46,9 @@
     </table>
     <div>
         <h3>Sort</h3>
-        @foreach (var button in SortedButtons)
-        {
-            <button class="btn btn-secondary mr-1" @onclick="()=>sortList(button.sortType)">@button.buttonTitle</button> 
-           
-        }
+        <button class="btn btn-secondary mr-1" @onclick="@(()=>sortList("lastname"))">Last Name</button>
+        <button class="btn btn-secondary mr-1" @onclick="@(()=>sortList("firstname"))">First Name</button>
+
 
     </div>
 
@@ -62,12 +60,7 @@
 
 
 @code{
-    List<Buttons> SortedButtons = new List<Buttons>
-    {
-        new Buttons{buttonTitle = "Last Name", sortType="lastname"},
-        new Buttons{buttonTitle = "First Name", sortType="firstname"}
 
-    };
 
     List<Contact> ContactList;
 
@@ -89,16 +82,5 @@
 
         isLoading = false;
     }
-
-
-    private class Buttons
-    {
-        public string buttonTitle {get; set; }
-
-        public string sortType { get; set; }
-
-    }
-
-
 
 }
