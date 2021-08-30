@@ -21,8 +21,8 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Last Name</th>
-                <th>First Name</th>
+                <th @onclick="@(()=>sortList("lastname"))" class="pointer">Last Name</th>
+                <th @onclick="@(()=>sortList("firstname"))" class="pointer">First Name</th>
                 <th>BirthDate</th>
                 <th>Phone Number</th>
                 <th>Action</th>
@@ -44,13 +44,7 @@
         </tbody>
 
     </table>
-    <div>
-        <h3>Sort</h3>
-        <button class="btn btn-secondary mr-1" @onclick="@(()=>sortList("lastname"))">Last Name</button>
-        <button class="btn btn-secondary mr-1" @onclick="@(()=>sortList("firstname"))">First Name</button>
 
-
-    </div>
 
  }
 
