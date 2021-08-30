@@ -8,7 +8,7 @@
 
 
 
-<h1>Add a Contact </h1>
+<h1>Edit a Contact </h1>
 
 @if (isLoading)
 {
@@ -88,15 +88,15 @@ else
     }
     private async void submitHandler()
     {
-        Contact updatedContact = new Contact();
-        updatedContact.LastName = existingContactForm.LastName;
-        updatedContact.FirstName = existingContactForm.FirstName;
-        updatedContact.PhoneNumber = existingContactForm.PhoneNumber;
-        updatedContact.BirthDate = existingContactForm.BirthDate;
-        updatedContact.Id = existingContact.Id;
+        
+        existingContact.LastName = existingContactForm.LastName;
+        existingContact.FirstName = existingContactForm.FirstName;
+        existingContact.PhoneNumber = existingContactForm.PhoneNumber;
+        existingContact.BirthDate = existingContactForm.BirthDate;
+        
 
 
-        await Task.Run(() => ContactService.UpdateContact(updatedContact));
+        await Task.Run(() => ContactService.UpdateContact(existingContact));
 
         NavigationManager.NavigateTo("");
     }
