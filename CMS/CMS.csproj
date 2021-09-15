@@ -10,6 +10,7 @@
     <None Remove="Microsoft.EntityFrameworkCore.Design" />
     <None Remove="DB\" />
     <None Remove="FormModels\" />
+    <None Remove="Components\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MySql.EntityFrameworkCore" Version="5.0.5" />
@@ -22,5 +23,6 @@
   <ItemGroup>
     <Folder Include="DB\" />
     <Folder Include="FormModels\" />
+    <Folder Include="Components\" />
   </ItemGroup>
 </Project>

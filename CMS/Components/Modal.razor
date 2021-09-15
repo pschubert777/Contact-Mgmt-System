@@ -1,0 +1,33 @@
+﻿
+
+
+
+
+@if (displayModal == true)
+{
+    <div class="backdrop"></div>
+    <div class="custom-modal">
+
+        <h3>Are you sure you want to delete this contact </h3>
+        <button type="button" class="button submit-button" @onclick="@(()=>deleteHandler.InvokeAsync())"> Submit</button>
+        <button type="button" class="button cancel-button" @onclick="@(()=>closeModal.InvokeAsync())">Cancel</button>
+    </div>
+}
+
+
+
+@code {
+    [Parameter]
+    public EventCallback closeModal { get; set; }
+
+    [Parameter]
+    public EventCallback deleteHandler { get; set; }
+
+    [Parameter]
+    public Boolean displayModal { get; set; } = false;
+
+
+
+
+
+}
