@@ -1,10 +1,5 @@
 ﻿@page "/addcontact"
-
-@using CMS.Data
-@using CMS.DB
-@using CMS.FormModels
-@inject NavigationManager NavigationManager
-@inject ContactService ContactService
+@inherits AddContactBase;
 
 
 
@@ -42,25 +37,3 @@
     </EditForm>
 </div>
 
-@code {
-    private ContactModel newContactForm = new ContactModel();
-
-
-    private void cancelHandler()
-    {
-        NavigationManager.NavigateTo("");
-    }
-    private async void submitHandler()
-    {
-        Contact newContact = new Contact();
-        newContact.LastName = newContactForm.LastName;
-        newContact.FirstName = newContactForm.FirstName;
-        newContact.PhoneNumber = newContactForm.PhoneNumber;
-        newContact.BirthDate = newContactForm.BirthDate;
-
-
-        await Task.Run(() => ContactService.AddContact(newContact));
-
-        NavigationManager.NavigateTo("");
-    }
-}
